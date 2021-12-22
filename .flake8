@@ -1,0 +1,8 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    *.egg-info,
+    .nox,
+    .pytest_cache,
+    .mypy_cache

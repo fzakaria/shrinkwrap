@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "shrinkwrap"
+version = "0.1.0"
+description = "A tool that embosses the needed dependencies on the top level executable."
+authors = ["Farid Zakaria <farid.m.zakaria@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+sh = "^1.14.2"
+click = "^8.0.3"
+
+[tool.poetry.dev-dependencies]
+black = "^21.12b0"
+flake8 = "^4.0.1"
+mypy = "^0.930"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
