@@ -8,11 +8,13 @@
 
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = import nixpkgs { inherit system; overlays = [ (import ./overlay.nix) ]; };
-      in {
-        packages = {
-            shrinkwrap = pkgs.shrinkwrap;
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ (import ./overlay.nix) ];
         };
+      in {
+        packages = { shrinkwrap = pkgs.shrinkwrap; };
 
         defaultPackage = pkgs.shrinkwrap;
       });
