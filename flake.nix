@@ -22,6 +22,6 @@
           buildInputs = with pkgs; [ poetry ];
           inputsFrom = builtins.attrValues self.packages.${system};
         };
-        
+
       });
 }
