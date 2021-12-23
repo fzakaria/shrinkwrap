@@ -69,4 +69,4 @@ It automatically creates a `_stamped` copy of the filename if none provided and 
 	/lib64/ld-linux-x86-64.so.2 (0x00007f9cd4336000)
 ```
 
-Thanks to @trws for the inspiration and original version of this Python script.
+Thanks to [@trws](https://github.com/trws) for the inspiration and original version of this Python script.
