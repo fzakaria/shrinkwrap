@@ -1,4 +1,5 @@
 import os
+import lief
 import re
 from typing import Optional
 
@@ -15,6 +16,7 @@ def shrinkwrap(file: str, output: Optional[str]):
         output = os.path.basename(file) + "_stamped"
 
     try:
+        binary = lief.parse(file)
         interpreter: RunningCommand = patchelf("--print-interpreter", file)
         interpreter = Command(interpreter.strip())
         resolution = interpreter("--list", file)
