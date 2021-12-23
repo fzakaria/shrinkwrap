@@ -3,8 +3,7 @@ import re
 from typing import Optional
 
 import click
-from sh import (Command, ErrorReturnCode, RunningCommand, cp,  # type: ignore
-                patchelf)
+from sh import Command, ErrorReturnCode, RunningCommand, cp, patchelf  # type: ignore
 
 
 @click.command()

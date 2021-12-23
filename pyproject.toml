@@ -21,6 +21,7 @@ shrinkwrap = 'shrinkwrap.cli:shrinkwrap'
 
 [tool.isort]
 skip = [".git", "result"]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
