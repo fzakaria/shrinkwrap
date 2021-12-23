@@ -1,5 +1,6 @@
 # Shrinkwrap
 
+![main](https://github.com/fzakaria/shrinkwrap/actions/workflows/main.yml/badge.svg)
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
 >  A tool that embosses the needed dependencies on the top level executable
