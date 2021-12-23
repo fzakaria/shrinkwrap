@@ -75,11 +75,41 @@ It automatically creates a `_stamped` copy of the filename if none provided and 
 
 Certain _store_ based build tools such as [Guix](https://guix.gnu.org/), [Nix](https://nixos.org) or [Spack](https://spack.io/) make heavy use of _RUNPATH_ to help create reproducible and hermetic binaries.
 
-One problem with the heavy use of _RUNPATH_, is that the search space could effect startup as it's `O(n)` on the number of entries (potentially worse if using _RPATH_).
+One problem with the heavy use of _RUNPATH_, is that the search space could effect startup as it's `O(n)` on the number of entries (potentially worse if using _RPATH_). This can alo be expensive in _stat syscalls_, that has been well documented by in [this blog post](https://guix.gnu.org/blog/2021/taming-the-stat-storm-with-a-loader-cache/).
 
 Secondly, shared dynamic objects may be found due to the fact that they are cached during the linking stage. Meaning, if another shared object requires the same dependency but failed to specify where to find it, it may still properly resolved if discovered earlier in the linking process. This is extremely error prone and changing any of the executable's dependencies can change the link order and potentially cause the binary to no longer work.
 
 Lifting up the needed shared objects to the top executable makes the dependency discovery _simple_, _quick_ and _hermetic_ since it can no longer change based on the order of visited dependencies.
+
+## Pitfalls
+
+At the moment this only works with _glibc_ and not other _Standard C Libraries_ such as _musl_. The reason is that other linkers seem to resolve duplicate shared object files differently when they appear in the traversal. Consider the following example:
+
+```
+              +------------+
+              |            |
+              | Executable |
+              |            |
+      +-------+------------+----+
+      |                         |
+      |                         |
++-----v-----+            +------v----+
+|           |            |           |
+| libbar.so |            | libfoo.so |
+|           |            |           |
++-----+-----+            +-----------+
+      |               /some-fixed-path/libfoo.so
+      |
++-----v------+
+|            |
+| libfoo.so  |
+|            |
++------------+
+```
+
+In _glibc_ the cache is keyed by the _soname_ value on the shared object. That allows the first found _libfoo.so_ at _/some-fixed-path/libfoo.so_ to be used for the one which _libbar.so_ depends on.
+
+Unfortunately, _musl_ does not support this functionality and ongoing discussions of inclusing it can be followed on the [mailing list](https://www.openwall.com/lists/musl/2021/12/21/1).
 
 ## Contributions
 
