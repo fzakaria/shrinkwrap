@@ -17,5 +17,6 @@ jobs:
         with:
           name: fzakaria
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+      - run: nix flake check
       - run: nix build
       - run: nix run . -- --help

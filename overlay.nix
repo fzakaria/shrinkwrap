@@ -6,4 +6,13 @@ self: super: {
   };
 
   shrinkwrap = self.callPackage ./derivation.nix { };
+
+  shrinkwrap-env = self.poetry2nix.mkPoetryEnv {
+    projectDir = ./.;
+    overrides = [ self.poetry2nix.defaultPoetryOverrides self.poetryOverrides ];
+    editablePackageSources = {
+      shrinkwrap = ./shrinkwrap;
+    };
+  };
+
 }
