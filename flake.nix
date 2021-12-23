@@ -20,23 +20,31 @@
           inherit system;
           overlays = [ poetry2nix.overlay (import ./overlay.nix) ];
         };
-      in {
+        runCodeAnalysis = name: command:
+          pkgs.runCommand "shrinkwrap-${name}-check" { } ''
+            cd ${self}    
+            ${command}
+            mkdir $out
+          '';
+      in
+      {
         packages = { shrinkwrap = pkgs.shrinkwrap; };
 
 
         checks = {
-            pytest-check = pkgs.runCommand "shrinkwrap-check" { } ''
-              cd ${self}
-              ${pkgs.shrinkwrap-env}/bin/pytest .
-              mkdir $out
-            ''; 
+          pytest-check = runCodeAnalysis "pytest" ''
+            ${pkgs.shrinkwrap-env}/bin/pytest .
+          '';
+          nixpkgs-fmt-check = runCodeAnalysis "nixpkgs-fmt" ''
+            ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check .
+          '';
         };
 
         defaultPackage = pkgs.shrinkwrap;
 
         devShell = pkgs.shrinkwrap-env.env.overrideAttrs (old: {
           nativeBuildInputs = with pkgs;
-            old.nativeBuildInputs ++ [ pkgs.poetry ];
+            old.nativeBuildInputs ++ [ poetry nixpkgs-fmt nix-linter ];
         });
 
       });
