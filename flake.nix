@@ -17,5 +17,11 @@
         packages = { shrinkwrap = pkgs.shrinkwrap; };
 
         defaultPackage = pkgs.shrinkwrap;
+
+        devShell = pkgs.mkShell {
+          buildInputs = with pkgs; [ poetry ];
+          inputsFrom = builtins.attrValues self.packages.${system};
+        };
+        
       });
 }
