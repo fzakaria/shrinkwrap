@@ -8,7 +8,7 @@ let
     overrides = [ poetry2nix.defaultPoetryOverrides poetryOverrides ];
   };
 in stdenv.mkDerivation {
-    name = "srinkwrap";
+    name = "shrinkwrap";
     buildInputs = [ makeWrapper ];
     phases = [ "installPhase" ];
     installPhase = ''
