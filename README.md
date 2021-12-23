@@ -2,8 +2,9 @@
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-
 >  A tool that embosses the needed dependencies on the top level executable
+
+# Introduction
 
 It can be useful to _freeze_ all the dynamic shared objects needed by an application.
 
@@ -68,5 +69,17 @@ It automatically creates a `_stamped` copy of the filename if none provided and 
 	/lib/x86_64-linux-gnu/libc.so.6 (0x00007f9cd3bc7000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007f9cd4336000)
 ```
+
+## Motivation
+
+Certain _store_ based build tools such as [Guix](https://guix.gnu.org/), [Nix](https://nixos.org) or [Spack](https://spack.io/) make heavy use of _RUNPATH_ to help create reproducible and hermetic binaries.
+
+One problem with the heavy use of _RUNPATH_, is that the search space could effect startup as it's `O(n)` on the number of entries (potentially worse if using _RPATH_).
+
+Secondly, shared dynamic objects may be found due to the fact that they are cached during the linking stage. Meaning, if another shared object requires the same dependency but failed to specify where to find it, it may still properly resolved if discovered earlier in the linking process. This is extremely error prone and changing any of the executable's dependencies can change the link order and potentially cause the binary to no longer work.
+
+Lifting up the needed shared objects to the top executable makes the dependency discovery _simple_, _quick_ and _hermetic_ since it can no longer change based on the order of visited dependencies.
+
+## Contributions
 
 Thanks to [@trws](https://github.com/trws) for the inspiration and original version of this Python script.
