@@ -1,6 +1,6 @@
 import os
 import re
-from shutil import copy
+from shutil import copystat
 from typing import Optional
 
 import click
@@ -25,8 +25,6 @@ def shrinkwrap(file: str, output: Optional[str]):
         resolution = interpreter("--list", file)
 
         needed = binary.libraries
-        # copy the file to the desired output location
-        copy(file, output)
 
         for line in resolution:
             m = re.match(r"\s*([^ ]+) => ([^ ]+)", line)
@@ -40,6 +38,9 @@ def shrinkwrap(file: str, output: Optional[str]):
 
         # dump the new binary file
         binary.write(output)
+
+        # copy the file metadata
+        copystat(file, output)
     except ErrorReturnCode as e:
         print(f"shrinkwrap failed: {e.stderr}")
         exit(1)
