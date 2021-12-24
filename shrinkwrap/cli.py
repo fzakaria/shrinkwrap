@@ -28,8 +28,6 @@ def shrinkwrap(file: str, output: Optional[str]):
         # copy the file to the desired output location
         copy(file, output)
 
-        # once a release is made for https://github.com/NixOS/patchelf/issues/359
-        # we can condense this to a single patchelf call
         for line in resolution:
             m = re.match(r"\s*([^ ]+) => ([^ ]+)", line)
             if not m:
