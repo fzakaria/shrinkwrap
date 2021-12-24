@@ -10,8 +10,10 @@ format:
 typecheck:
 	mypy --show-error-codes --pretty .
 
+test:
+	pytest
 
-all: lint typecheck
+all: lint typecheck pytest
 
 .PHONY: typecheck lint format
 
