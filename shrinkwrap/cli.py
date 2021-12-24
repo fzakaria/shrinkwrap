@@ -5,7 +5,7 @@ from typing import Optional
 
 import click
 import lief  # type: ignore
-from sh import Command, ErrorReturnCode, patchelf  # type: ignore
+from sh import Command, ErrorReturnCode  # type: ignore
 
 
 @click.command()
@@ -36,9 +36,12 @@ def shrinkwrap(file: str, output: Optional[str]):
                 continue
             soname, lib = m.group(1), m.group(2)
             if soname in needed:
-                patchelf("--replace-needed", soname, lib, output)
-            else:
-                patchelf("--add-needed", lib, output)
+                binary.remove_library(soname)
+
+            binary.add_library(lib)
+
+        # dump the new binary file
+        binary.write(output)
     except ErrorReturnCode as e:
         print(f"shrinkwrap failed: {e.stderr}")
         exit(1)
