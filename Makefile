@@ -1,14 +1,14 @@
 lint:
-	poetry run black --check .
-	poetry run isort -c .
-	poetry run flake8 .
+	black --check .
+	isort -c .
+	flake8 .
 
 format:
-	poetry run black .
-	poetry run isort .
+	black .
+	isort .
 
 typecheck:
-	poetry run mypy --show-error-codes --pretty .
+	mypy --show-error-codes --pretty .
 
 
 all: lint typecheck

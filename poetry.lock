@@ -66,18 +66,6 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
-name = "filelock"
-version = "3.4.0"
-description = "A platform independent file lock."
-category = "dev"
-optional = false
-python-versions = ">=3.6"
-
-[package.extras]
-docs = ["furo (>=2021.8.17b43)", "sphinx (>=4.1)", "sphinx-autodoc-typehints (>=1.12)"]
-testing = ["covdefaults (>=1.2.0)", "coverage (>=4)", "pytest (>=4)", "pytest-cov", "pytest-timeout (>=1.4.2)"]
-
-[[package]]
 name = "flake8"
 version = "4.0.1"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -111,6 +99,14 @@ pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
 requirements_deprecated_finder = ["pipreqs", "pip-api"]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
 plugins = ["setuptools"]
+
+[[package]]
+name = "lief"
+version = "0.11.5"
+description = "Library to instrument executable formats"
+category = "main"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "mccabe"
@@ -245,45 +241,6 @@ toml = "*"
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
-name = "pytest-black"
-version = "0.3.12"
-description = "A pytest plugin to enable format checking with black"
-category = "dev"
-optional = false
-python-versions = ">=2.7"
-
-[package.dependencies]
-black = {version = "*", markers = "python_version >= \"3.6\""}
-pytest = ">=3.5.0"
-toml = "*"
-
-[[package]]
-name = "pytest-flake8"
-version = "1.0.7"
-description = "pytest plugin to check FLAKE8 requirements"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-flake8 = ">=3.5"
-pytest = ">=3.5"
-
-[[package]]
-name = "pytest-mypy"
-version = "0.8.1"
-description = "Mypy static type checker plugin for Pytest"
-category = "dev"
-optional = false
-python-versions = ">=3.5"
-
-[package.dependencies]
-attrs = ">=19.0"
-filelock = ">=3.0"
-mypy = {version = ">=0.780", markers = "python_version >= \"3.9\""}
-pytest = ">=3.5"
-
-[[package]]
 name = "sh"
 version = "1.14.2"
 description = "Python subprocess replacement"
@@ -318,7 +275,7 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "d2c2fbebe548e4f45a89f608de51ac9c2b291495c9d38fc12f820e3e9559f55b"
+content-hash = "1a49e5400de05a46967ee843695ee8f308e0d1bbb108a6151a6dc25ce3734bd7"
 
 [metadata.files]
 atomicwrites = [
@@ -341,10 +298,6 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
-filelock = [
-    {file = "filelock-3.4.0-py3-none-any.whl", hash = "sha256:2e139a228bcf56dd8b2274a65174d005c4a6b68540ee0bdbb92c76f43f29f7e8"},
-    {file = "filelock-3.4.0.tar.gz", hash = "sha256:93d512b32a23baf4cac44ffd72ccf70732aeff7b8050fcaf6d3ec406d954baf4"},
-]
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
     {file = "flake8-4.0.1.tar.gz", hash = "sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d"},
@@ -356,6 +309,34 @@ iniconfig = [
 isort = [
     {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},
     {file = "isort-5.10.1.tar.gz", hash = "sha256:e8443a5e7a020e9d7f97f1d7d9cd17c88bcb3bc7e218bf9cf5095fe550be2951"},
+]
+lief = [
+    {file = "lief-0.11.5-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:1cca100e77382f4137a3b1283769efa0e68a965fa4f3e21e64e3f67b6e22fdc8"},
+    {file = "lief-0.11.5-cp36-cp36m-manylinux1_x86_64.whl", hash = "sha256:621ad19f77884a008d61e05b92aed8309a8460e93916f4722439beaa529ca37d"},
+    {file = "lief-0.11.5-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c672dcd78dbbe2c0746721cdb1593b237a8b983d039e73713b055449e4a58207"},
+    {file = "lief-0.11.5-cp36-cp36m-win32.whl", hash = "sha256:5a0da170943aaf7019b27b9a7199b860298426c0455f88add392f472605c39ee"},
+    {file = "lief-0.11.5-cp36-cp36m-win_amd64.whl", hash = "sha256:5f5fb42461b5d5d5b2ccf7fe17e8f26bd632afcbaedf29a9d30819eeea5dab29"},
+    {file = "lief-0.11.5-cp37-cp37m-macosx_10_14_x86_64.whl", hash = "sha256:710112ebc642bf5287a7b25c54c8a4e1079cbb403d4e844a364e1c3cbed52486"},
+    {file = "lief-0.11.5-cp37-cp37m-manylinux1_x86_64.whl", hash = "sha256:bfc0246af63361e22a952f8babd542477d64288d993c5a053a72f9e3f59da795"},
+    {file = "lief-0.11.5-cp37-cp37m-manylinux2014_aarch64.whl", hash = "sha256:8b219ce4a41b0734fe9a7fbfde7d23a92bc005c8684882662808fc438568c1b5"},
+    {file = "lief-0.11.5-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3f510836d19cee407015ee565ea566e444471f0ecb3028a5c5e2219a7583f3c4"},
+    {file = "lief-0.11.5-cp37-cp37m-win32.whl", hash = "sha256:9c6cc9da3e3a56ad29fc4e77e7109e960bd0cae3e3ba5307e3ae5c65d85fbdc4"},
+    {file = "lief-0.11.5-cp37-cp37m-win_amd64.whl", hash = "sha256:a1f7792f1d811a898d3d676c32731d6b055573a2c3e67988ab1b32917db3de96"},
+    {file = "lief-0.11.5-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:fd41077526e30bfcafa3d03bff8466a4a9ae4bbe21cadd6a09168a62ce18710c"},
+    {file = "lief-0.11.5-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:5122e4e70fecc32e7fdf2e9cd9b580ddd63fb4509eae373be78b3c11d67175b8"},
+    {file = "lief-0.11.5-cp38-cp38-manylinux1_x86_64.whl", hash = "sha256:e6d9621c1db852ca4de37efe98151838edf0a976fe03cace471b3a761861f95e"},
+    {file = "lief-0.11.5-cp38-cp38-manylinux2014_aarch64.whl", hash = "sha256:17314177c0124ccd450554bbcb203b8cd2660c94e36bdc05a6eba04bb0af3954"},
+    {file = "lief-0.11.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b275a542b5ef173ec9602d2f511a895c4228db63bbbc58699859da4afe8bfd58"},
+    {file = "lief-0.11.5-cp38-cp38-win32.whl", hash = "sha256:208294f208354f57ded772efc4c3b2ea61fae35325a048d38c21571cb35e4bfc"},
+    {file = "lief-0.11.5-cp38-cp38-win_amd64.whl", hash = "sha256:f4e8a878615a46ef4ae016261a59152b8c019a35adb865e26a37c8ef25200d7e"},
+    {file = "lief-0.11.5-cp39-cp39-macosx_10_14_x86_64.whl", hash = "sha256:544b0f8a587bc5f6fd39cf47d9785af2714f982682efcd1dd3291604e7cb6351"},
+    {file = "lief-0.11.5-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:e743345290649f54efcf2c1ea530f3520a7b22583fb8b0772df48b1901ecb1ea"},
+    {file = "lief-0.11.5-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:eb8c2ae617ff54c4ea73dbd055544681b3cfeafbdbf0fe4535fac494515ab65b"},
+    {file = "lief-0.11.5-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:a4bb649a2f5404b8e2e4b8beb3772466430e7382fc5f7f014f3f778137133987"},
+    {file = "lief-0.11.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:44bd7804a39837ff46cd543154f6e4a28e2d4fafa312752ca6deea1c849995ce"},
+    {file = "lief-0.11.5-cp39-cp39-win32.whl", hash = "sha256:8fd1ecdb3001e8e19df7278b77df5d6394ad6071354e177d11ad08b0a727d390"},
+    {file = "lief-0.11.5-cp39-cp39-win_amd64.whl", hash = "sha256:c773eaee900f398cc98a9c8501d9ab7465af9729979841bb78f4aaa8b821fd9a"},
+    {file = "lief-0.11.5.zip", hash = "sha256:932ba495388fb52b4ba056a0b00abe0bda3567ad3ebc6d726be1e87b8be08b3f"},
 ]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
@@ -422,17 +403,6 @@ pyparsing = [
 pytest = [
     {file = "pytest-6.2.5-py3-none-any.whl", hash = "sha256:7310f8d27bc79ced999e760ca304d69f6ba6c6649c0b60fb0e04a4a77cacc134"},
     {file = "pytest-6.2.5.tar.gz", hash = "sha256:131b36680866a76e6781d13f101efb86cf674ebb9762eb70d3082b6f29889e89"},
-]
-pytest-black = [
-    {file = "pytest-black-0.3.12.tar.gz", hash = "sha256:1d339b004f764d6cd0f06e690f6dd748df3d62e6fe1a692d6a5500ac2c5b75a5"},
-]
-pytest-flake8 = [
-    {file = "pytest-flake8-1.0.7.tar.gz", hash = "sha256:f0259761a903563f33d6f099914afef339c085085e643bee8343eb323b32dd6b"},
-    {file = "pytest_flake8-1.0.7-py2.py3-none-any.whl", hash = "sha256:c28cf23e7d359753c896745fd4ba859495d02e16c84bac36caa8b1eec58f5bc1"},
-]
-pytest-mypy = [
-    {file = "pytest-mypy-0.8.1.tar.gz", hash = "sha256:1fa55723a4bf1d054fcba1c3bd694215a2a65cc95ab10164f5808afd893f3b11"},
-    {file = "pytest_mypy-0.8.1-py3-none-any.whl", hash = "sha256:6e68e8eb7ceeb7d1c83a1590912f784879f037b51adfb9c17b95c6b2fc57466b"},
 ]
 sh = [
     {file = "sh-1.14.2-py2.py3-none-any.whl", hash = "sha256:4921ac9c1a77ec8084bdfaf152fe14138e2b3557cc740002c1a97076321fce8a"},
