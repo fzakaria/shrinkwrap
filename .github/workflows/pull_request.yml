@@ -16,6 +16,6 @@ jobs:
       - uses: cachix/cachix-action@v10
         with:
           name: fzakaria
-      - run: nix flake check
-      - run: nix build
+      - run: nix flake check --print-build-logs
+      - run: nix build --print-build-logs
       - run: nix run . -- --help
