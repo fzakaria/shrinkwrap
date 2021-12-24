@@ -111,6 +111,22 @@ In _glibc_ the cache is keyed by the _soname_ value on the shared object. That a
 
 Unfortunately, _musl_ does not support this functionality and ongoing discussions of inclusing it can be followed on the [mailing list](https://www.openwall.com/lists/musl/2021/12/21/1).
 
+## Development
+
+You must have [Nix](https://nixos.org) installed for development.
+
+This package uses [poetry2nix](https://github.com/nix-community/poetry2nix) to easily setup a development environment.
+
+```console
+> nix develop
+```
+
+A helping `Makefile` is provided to run all the _linters_ and _formatters_.
+
+```console
+> make lint
+```
+
 ## Contributions
 
 Thanks to [@trws](https://github.com/trws) for the inspiration and original version of this Python script.

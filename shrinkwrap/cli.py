@@ -1,10 +1,11 @@
 import os
-import lief
 import re
+from shutil import copyfile
 from typing import Optional
 
 import click
-from sh import Command, ErrorReturnCode, RunningCommand, cp, patchelf  # type: ignore
+import lief  # type: ignore
+from sh import Command, ErrorReturnCode, patchelf  # type: ignore
 
 
 @click.command()
@@ -16,13 +17,16 @@ def shrinkwrap(file: str, output: Optional[str]):
         output = os.path.basename(file) + "_stamped"
 
     try:
-        binary = lief.parse(file)
-        interpreter: RunningCommand = patchelf("--print-interpreter", file)
-        interpreter = Command(interpreter.strip())
+        binary: lief.Binary = lief.parse(file)
+        if not binary.has_interpreter:
+            click.echo("no interpreter set on the binary")
+            exit(1)
+        interpreter = Command(binary.interpreter)
         resolution = interpreter("--list", file)
-        needed = set((ent.strip() for ent in patchelf("--print-needed", file)))
+
+        needed = binary.libraries
         # copy the file to the desired output location
-        cp(file, output)
+        copyfile(file, output)
 
         # once a release is made for https://github.com/NixOS/patchelf/issues/359
         # we can condense this to a single patchelf call

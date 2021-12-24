@@ -33,7 +33,19 @@
 
         checks = {
           pytest-check = runCodeAnalysis "pytest" ''
-            ${pkgs.shrinkwrap-env}/bin/pytest .
+            ${pkgs.shrinkwrap-env}/bin/pytest -p no:cacheprovider .
+          '';
+          black-check = runCodeAnalysis "black" ''
+            ${pkgs.shrinkwrap-env}/bin/black --check .
+          '';
+          mypy-check = runCodeAnalysis "mypy" ''
+            ${pkgs.shrinkwrap-env}/bin/mypy .
+          '';
+          isort-check = runCodeAnalysis "isort" ''
+            ${pkgs.shrinkwrap-env}/bin/isort -c .
+          '';
+          flake8-check = runCodeAnalysis "flake8" ''
+            ${pkgs.shrinkwrap-env}/bin/flake8 .
           '';
           nixpkgs-fmt-check = runCodeAnalysis "nixpkgs-fmt" ''
             ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt --check .

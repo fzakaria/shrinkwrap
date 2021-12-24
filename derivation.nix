@@ -3,7 +3,6 @@
 , poetry2nix
 , python39
 , patchelf
-, coreutils
 , poetryOverrides
 , writeScriptBin
 , makeWrapper
@@ -22,6 +21,6 @@ stdenv.mkDerivation {
   phases = [ "installPhase" ];
   installPhase = ''
     mkdir $out
-    makeWrapper ${app}/bin/shrinkwrap $out/bin/shrinkwrap --prefix PATH : ${lib.makeBinPath [coreutils patchelf]}
+    makeWrapper ${app}/bin/shrinkwrap $out/bin/shrinkwrap --prefix PATH : ${lib.makeBinPath [patchelf]}
   '';
 }
