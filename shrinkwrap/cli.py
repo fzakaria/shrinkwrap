@@ -1,6 +1,6 @@
 import os
 import re
-from shutil import copyfile
+from shutil import copy
 from typing import Optional
 
 import click
@@ -26,7 +26,7 @@ def shrinkwrap(file: str, output: Optional[str]):
 
         needed = binary.libraries
         # copy the file to the desired output location
-        copyfile(file, output)
+        copy(file, output)
 
         # once a release is made for https://github.com/NixOS/patchelf/issues/359
         # we can condense this to a single patchelf call
