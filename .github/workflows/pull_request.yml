@@ -1,6 +1,6 @@
-name: Main
+name: Pull Request
 on:
-  push:
+  pull_request:
     branches:
       - main
 jobs:
@@ -16,7 +16,6 @@ jobs:
       - uses: cachix/cachix-action@v10
         with:
           name: fzakaria
-          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
       - run: nix flake check
       - run: nix build
       - run: nix run . -- --help
