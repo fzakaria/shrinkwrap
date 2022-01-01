@@ -53,7 +53,7 @@ class VirtualLinkStrategy(LinkStrategy):
     # TODO: Need to figure out a good way to determine the NEEDED of glibc
     # I think it's resolving based on a shared object cache from the .INTERP
     # section but that remains to be validated.
-    SKIP = ["ld-linux.so.2", "ld-linux-x86-64.so.2", "libc.so.6"]
+    SKIP = ["ld-linux.so.2", "ld-linux-x86-64.so.2"]
 
     @staticmethod
     def find(

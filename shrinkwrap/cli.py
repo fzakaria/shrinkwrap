@@ -41,6 +41,14 @@ def shrinkwrap(file: str, output: Optional[str], link_strategy: str):
             binary.remove_library(soname)
         binary.add_library(lib)
 
+    # we need to update the VERNEED entries now to match
+    verneeded = binary.symbols_version_requirement
+    for verneed in verneeded:
+        if verneed.name in resolution:
+            # we want to map the possible shortname soname
+            # to the absolute one we generate
+            verneed.name = resolution.get(verneed.name)
+
     # dump the new binary file
     binary.write(output)
 
