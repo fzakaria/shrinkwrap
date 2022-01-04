@@ -4,6 +4,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
     flake-utils.url = "github:numtide/flake-utils";
+    patchelf = {
+      url = "github:NixOS/patchelf";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     poetry2nix = {
       url = "github:nix-community/poetry2nix";
       inputs = {
@@ -11,14 +17,19 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, poetry2nix }:
+  outputs = { self, nixpkgs, flake-utils, poetry2nix, patchelf, ... }@inputs:
     flake-utils.lib.eachDefaultSystem (system:
       let
+        patchelf-overlay = prev: super: { patchelf = patchelf.packages.${system}.patchelf; };
         pkgs = import nixpkgs {
           inherit system;
-          overlays = [ poetry2nix.overlay (import ./overlay.nix) ];
+          overlays = [ patchelf-overlay poetry2nix.overlay (import ./overlay.nix) ];
         };
         runCodeAnalysis = name: command:
           pkgs.runCommand "shrinkwrap-${name}-check" { } ''
