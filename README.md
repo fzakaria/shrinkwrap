@@ -41,7 +41,7 @@ libc.so.6
 Let's now apply _shrinkwrap_ and see the results.
 
 ```console
-❯ nix run github:fzakaria/shrinkwrap $(which ruby
+❯ nix run github:fzakaria/shrinkwrap $(which ruby)
 ```
 
 It automatically creates a `_stamped` copy of the filename if none provided and sets all the _NEEDED_ sections.
