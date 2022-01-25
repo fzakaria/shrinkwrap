@@ -3,5 +3,5 @@
 nix-store -qR \
     --include-outputs \
     $(nix-store -qd $(nix build --json | jq -r '.[].outputs | to_entries[].value')) \
-    | grep '\.drv$' \
+    | grep -v '\.drv$' \
     | cachix push fzakaria
