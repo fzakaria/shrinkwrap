@@ -30,7 +30,9 @@
       {
         packages = {
           shrinkwrap = pkgs.shrinkwrap;
+        };
 
+        legacyPackages = {
           experiments = {
             emacs = pkgs.dockerTools.buildImage {
               name = "emacs-experiment";
@@ -48,7 +50,6 @@
             };
           };
         };
-
 
         checks = {
           pytest-check = runCodeAnalysis "pytest" ''
