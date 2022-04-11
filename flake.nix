@@ -28,7 +28,26 @@
           '';
       in
       {
-        packages = { shrinkwrap = pkgs.shrinkwrap; };
+        packages = {
+          shrinkwrap = pkgs.shrinkwrap;
+
+          experiments = {
+            emacs = pkgs.dockerTools.buildImage {
+              name = "emacs-experiment";
+              contents = [
+                pkgs.strace
+                pkgs.emacs
+                pkgs.shrinkwrap
+                pkgs.bashInteractive
+              ];
+              runAsRoot = ''
+                # this directory does not exist and is needed by shrinkwrap
+                mkdir /dev/fd
+                shrinkwrap ${pkgs.emacs}/bin/.emacs-27.2-wrapped -o /bin/emacs-wrapped
+              '';
+            };
+          };
+        };
 
 
         checks = {

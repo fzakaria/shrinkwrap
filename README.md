@@ -127,6 +127,23 @@ A helping `Makefile` is provided to run all the _linters_ and _formatters_.
 > make lint
 ```
 
+## Experiments
+
+Included in the flake are different experiments for evaluating Shrinkwrap.
+In most cases they provide a Docker image (tar.gz) which can be loaded.
+
+### emacs
+
+Creates a stamped version of the popular emacs editor similarly to the Guix experiment outlined in the [blog post](https://guix.gnu.org/blog/2021/taming-the-stat-storm-with-a-loader-cache/).
+
+You can build the Docker image and inside will be `emacs-wrapped` as well as `emacs` and `strace` to recreate the experiment.
+```console
+> nix build .#experiments.emacs
+> docker load < result
+643ace721190: Loading layer [==================================================>]  786.9MB/786.9MB
+Loaded image: emacs-experiment:x42z03wzsb0nsbr2y2y571jiziamj3np
+❯ docker run -it emacs-experiment:1lgvva1d08pi1x26sl38wf4qvw8gdzn7 /bin/bash
+```
 ## Contributions
 
 Thanks to [@trws](https://github.com/trws) for the inspiration and original version of this Python script.
