@@ -35,7 +35,7 @@
         legacyPackages = {
           experiments = {
             emacs = pkgs.dockerTools.buildImage {
-              name = "emacs-experiment";
+              name = "shrinkwrap-emacs-experiment";
               contents = [
                 pkgs.strace
                 pkgs.emacs

@@ -141,8 +141,15 @@ You can build the Docker image and inside will be `emacs-wrapped` as well as `em
 > nix build .#experiments.emacs
 > docker load < result
 643ace721190: Loading layer [==================================================>]  786.9MB/786.9MB
-Loaded image: emacs-experiment:x42z03wzsb0nsbr2y2y571jiziamj3np
-❯ docker run -it emacs-experiment:1lgvva1d08pi1x26sl38wf4qvw8gdzn7 /bin/bash
+Loaded image: shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk
+> docker run -it emacs-experiment:1lgvva1d08pi1x26sl38wf4qvw8gdzn7 /bin/bash
+```
+
+If you'd like you can pull the image directly from DockerHub via [fmzakari/shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk](https://hub.docker.com/layers/shrinkwrap-emacs-experiment/fmzakari/shrinkwrap-emacs-experiment/vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk/images/sha256-97ab652c5833a252b283006c2460a25e63f2a3f62313c4fb8bef9bc49306332a?context=explore).
+
+```console
+> docker pull fmzakari/shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk
+> docker run -it fmzakari/shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk /bin/bash
 ```
 ## Contributions
 
