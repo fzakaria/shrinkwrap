@@ -141,15 +141,28 @@ You can build the Docker image and inside will be `emacs-wrapped` as well as `em
 > nix build .#experiments.emacs
 > docker load < result
 643ace721190: Loading layer [==================================================>]  786.9MB/786.9MB
-Loaded image: shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk
-> docker run -it emacs-experiment:1lgvva1d08pi1x26sl38wf4qvw8gdzn7 /bin/bash
+Loaded image: shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj
+> docker run -it emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj /bin/bash
+> patchelf --print-needed /bin/emacs-stamped
+/nix/store/m756011mkf1i0ki78i8y6ac3gf8qphvi-gcc-10.3.0-lib/lib/libstdc++.so.6
+/nix/store/xif6gg595hgmqawrcarapa8j2r7fbz9w-icu4c-70.1/lib/libicudata.so.70
+/nix/store/i6cmh2d4hbyp00rnh5rpf48pc7xfzx6j-libgpg-error-1.42/lib/libgpg-error.so.0
+/nix/store/q39ykk5fnhlbnl119iqjbgaw44kd65fy-util-linux-2.37.2-lib/lib/libblkid.so.1
+/nix/store/b1k5z0fdj0pnfz89k440al7ww4a263bf-libglvnd-1.3.4/lib/libGLX.so.0
+
 ```
 
-If you'd like you can pull the image directly from DockerHub via [fmzakari/shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk](https://hub.docker.com/layers/shrinkwrap-emacs-experiment/fmzakari/shrinkwrap-emacs-experiment/vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk/images/sha256-97ab652c5833a252b283006c2460a25e63f2a3f62313c4fb8bef9bc49306332a?context=explore).
+If you'd like you can pull the image directly from DockerHub via [fmzakari/shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj](https://hub.docker.com/layers/shrinkwrap-emacs-experiment/fmzakari/shrinkwrap-emacs-experiment/7jjlknqq660x1crrw7gm4m2qzalp71qj/images/sha256-4633059bdf6c7ddbe23a4c6da11eba7ff58029eb870af01c98f10ada03324ee0?context=explore).
 
 ```console
-> docker pull fmzakari/shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk
-> docker run -it fmzakari/shrinkwrap-emacs-experiment:vjlj5ly2nkybx3rsdnp7wdfbm3zanvqk /bin/bash
+> docker pull fmzakari/shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj
+> docker run -it fmzakari/shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj /bin/bash
+> patchelf --print-needed /bin/emacs-stamped
+/nix/store/m756011mkf1i0ki78i8y6ac3gf8qphvi-gcc-10.3.0-lib/lib/libstdc++.so.6
+/nix/store/xif6gg595hgmqawrcarapa8j2r7fbz9w-icu4c-70.1/lib/libicudata.so.70
+/nix/store/i6cmh2d4hbyp00rnh5rpf48pc7xfzx6j-libgpg-error-1.42/lib/libgpg-error.so.0
+/nix/store/q39ykk5fnhlbnl119iqjbgaw44kd65fy-util-linux-2.37.2-lib/lib/libblkid.so.1
+/nix/store/b1k5z0fdj0pnfz89k440al7ww4a263bf-libglvnd-1.3.4/lib/libGLX.so.0
 ```
 ## Contributions
 

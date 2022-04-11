@@ -41,11 +41,13 @@
                 pkgs.emacs
                 pkgs.shrinkwrap
                 pkgs.bashInteractive
+                pkgs.binutils
+                pkgs.patchelf
               ];
               runAsRoot = ''
                 # this directory does not exist and is needed by shrinkwrap
                 mkdir /dev/fd
-                shrinkwrap ${pkgs.emacs}/bin/.emacs-27.2-wrapped -o /bin/emacs-wrapped
+                shrinkwrap ${pkgs.emacs}/bin/.emacs-27.2-wrapped -o /bin/emacs-stamped
               '';
             };
           };
