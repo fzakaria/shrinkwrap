@@ -127,6 +127,43 @@ A helping `Makefile` is provided to run all the _linters_ and _formatters_.
 > make lint
 ```
 
+## Experiments
+
+Included in the flake are different experiments for evaluating Shrinkwrap.
+In most cases they provide a Docker image (tar.gz) which can be loaded.
+
+### emacs
+
+Creates a stamped version of the popular emacs editor similarly to the Guix experiment outlined in the [blog post](https://guix.gnu.org/blog/2021/taming-the-stat-storm-with-a-loader-cache/).
+
+You can build the Docker image and inside will be `emacs-wrapped` as well as `emacs` and `strace` to recreate the experiment.
+```console
+> nix build .#experiments.emacs
+> docker load < result
+643ace721190: Loading layer [==================================================>]  786.9MB/786.9MB
+Loaded image: shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj
+> docker run -it emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj /bin/bash
+> patchelf --print-needed /bin/emacs-stamped
+/nix/store/m756011mkf1i0ki78i8y6ac3gf8qphvi-gcc-10.3.0-lib/lib/libstdc++.so.6
+/nix/store/xif6gg595hgmqawrcarapa8j2r7fbz9w-icu4c-70.1/lib/libicudata.so.70
+/nix/store/i6cmh2d4hbyp00rnh5rpf48pc7xfzx6j-libgpg-error-1.42/lib/libgpg-error.so.0
+/nix/store/q39ykk5fnhlbnl119iqjbgaw44kd65fy-util-linux-2.37.2-lib/lib/libblkid.so.1
+/nix/store/b1k5z0fdj0pnfz89k440al7ww4a263bf-libglvnd-1.3.4/lib/libGLX.so.0
+
+```
+
+If you'd like you can pull the image directly from DockerHub via [fmzakari/shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj](https://hub.docker.com/layers/shrinkwrap-emacs-experiment/fmzakari/shrinkwrap-emacs-experiment/7jjlknqq660x1crrw7gm4m2qzalp71qj/images/sha256-4633059bdf6c7ddbe23a4c6da11eba7ff58029eb870af01c98f10ada03324ee0?context=explore).
+
+```console
+> docker pull fmzakari/shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj
+> docker run -it fmzakari/shrinkwrap-emacs-experiment:7jjlknqq660x1crrw7gm4m2qzalp71qj /bin/bash
+> patchelf --print-needed /bin/emacs-stamped
+/nix/store/m756011mkf1i0ki78i8y6ac3gf8qphvi-gcc-10.3.0-lib/lib/libstdc++.so.6
+/nix/store/xif6gg595hgmqawrcarapa8j2r7fbz9w-icu4c-70.1/lib/libicudata.so.70
+/nix/store/i6cmh2d4hbyp00rnh5rpf48pc7xfzx6j-libgpg-error-1.42/lib/libgpg-error.so.0
+/nix/store/q39ykk5fnhlbnl119iqjbgaw44kd65fy-util-linux-2.37.2-lib/lib/libblkid.so.1
+/nix/store/b1k5z0fdj0pnfz89k440al7ww4a263bf-libglvnd-1.3.4/lib/libGLX.so.0
+```
 ## Contributions
 
 Thanks to [@trws](https://github.com/trws) for the inspiration and original version of this Python script.

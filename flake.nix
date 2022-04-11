@@ -28,8 +28,30 @@
           '';
       in
       {
-        packages = { shrinkwrap = pkgs.shrinkwrap; };
+        packages = {
+          shrinkwrap = pkgs.shrinkwrap;
+        };
 
+        legacyPackages = {
+          experiments = {
+            emacs = pkgs.dockerTools.buildImage {
+              name = "shrinkwrap-emacs-experiment";
+              contents = [
+                pkgs.strace
+                pkgs.emacs
+                pkgs.shrinkwrap
+                pkgs.bashInteractive
+                pkgs.binutils
+                pkgs.patchelf
+              ];
+              runAsRoot = ''
+                # this directory does not exist and is needed by shrinkwrap
+                mkdir /dev/fd
+                shrinkwrap ${pkgs.emacs}/bin/.emacs-27.2-wrapped -o /bin/emacs-stamped
+              '';
+            };
+          };
+        };
 
         checks = {
           pytest-check = runCodeAnalysis "pytest" ''
