@@ -4,6 +4,7 @@ import os
 import re
 from abc import ABC, abstractmethod
 from typing import Dict, Iterable, Optional
+from collections import OrderedDict
 
 import lief  # type: ignore
 from sh import Command  # type: ignore
@@ -35,7 +36,7 @@ class NativeLinkStrategy(LinkStrategy):
     def explore(self, binary: lief.Binary, filename: str) -> Dict[str, str]:
         interpreter = Command(binary.interpreter)
         resolution = interpreter("--list", filename)
-        result = {}
+        result = OrderedDict()
         # TODO: Figure out why `--list` and `ldd` produce different outcomes
         # specifically for the interpreter.
         # https://gist.github.com/fzakaria/3dc42a039401598d8e0fdbc57f5e7eae
@@ -45,6 +46,8 @@ class NativeLinkStrategy(LinkStrategy):
                 continue
             soname, lib = m.group(1), m.group(2)
             result[soname] = lib
+        import pprint
+        pprint.pprint(result)
         return result
 
 
@@ -91,7 +94,7 @@ class VirtualLinkStrategy(LinkStrategy):
         Determine the linking for all needed objects
         """
 
-        result = {}
+        result = OrderedDict()
         queue = [binary]
         rpaths = []
         ld_library_path = os.environ.get("LD_LIBRARY_PATH", "").split(":")
