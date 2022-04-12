@@ -46,8 +46,6 @@ class NativeLinkStrategy(LinkStrategy):
                 continue
             soname, lib = m.group(1), m.group(2)
             result[soname] = lib
-        import pprint
-        pprint.pprint(result)
         return result
 
 
