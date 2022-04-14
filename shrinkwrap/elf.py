@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 import re
 from abc import ABC, abstractmethod
-from typing import Dict, Iterable, Optional
 from collections import OrderedDict
+from typing import Dict, Iterable, Optional
 
 import lief  # type: ignore
 from sh import Command  # type: ignore

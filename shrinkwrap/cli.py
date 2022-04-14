@@ -39,7 +39,6 @@ def shrinkwrap(file: str, output: Optional[str], link_strategy: str):
         binary.remove_library(name)
 
     for soname, lib in reversed(resolution.items()):
-        print(soname, lib)
         binary.add_library(lib)
 
     # we need to update the VERNEED entries now to match
