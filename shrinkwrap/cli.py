@@ -34,11 +34,11 @@ def shrinkwrap(file: str, output: Optional[str], link_strategy: str):
 
     strategy = LinkStrategy.select_by_name(link_strategy)
     resolution = strategy.explore(binary, file)
-    needed = binary.libraries
+    needed = list(binary.libraries)
+    for name in needed:
+        binary.remove_library(name)
 
-    for soname, lib in resolution.items():
-        if soname in needed:
-            binary.remove_library(soname)
+    for soname, lib in reversed(resolution.items()):
         binary.add_library(lib)
 
     # we need to update the VERNEED entries now to match
