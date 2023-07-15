@@ -13,7 +13,7 @@ typecheck:
 test:
 	pytest
 
-all: lint typecheck pytest
+all: lint typecheck test
 
 clean:
 	rm -f *_stamped
