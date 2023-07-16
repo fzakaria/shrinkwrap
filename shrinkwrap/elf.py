@@ -40,10 +40,7 @@ class NativeLinkStrategy(LinkStrategy):
         # TODO: Figure out why `--list` and `ldd` produce different outcomes
         # specifically for the interpreter.
         # https://gist.github.com/fzakaria/3dc42a039401598d8e0fdbc57f5e7eae
-        # Additionally: the result of the interpreter(...) call is a
-        # RunningCommand object which supports line iteration.
-        # No need to call splitlines.
-        for line in resolution:
+        for line in resolution.splitlines():
             m = re.match(r"\s*([^ ]+) => ([^ ]+)", line)
             if not m:
                 continue
