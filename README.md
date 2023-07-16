@@ -127,6 +127,11 @@ A helping `Makefile` is provided to run all the _linters_ and _formatters_.
 > make lint
 ```
 
+Note: I publish artifacts to [cachix](https://cachix.org/) that you can use to develop faster.
+```console
+> cachix use fzakaria
+```
+
 ## Experiments
 
 Included in the flake are different experiments for evaluating Shrinkwrap.
